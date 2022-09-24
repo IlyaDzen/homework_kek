@@ -1,11 +1,11 @@
 puts "first side"
-a=gets.chomp
+a = gets.chomp
 
 puts "second side"
-b=gets.chomp
+b = gets.chomp
 
 puts "third side"
-c=gets.chomp
+c = gets.chomp
 
 if a.to_i == b.to_i and c.to_i == a.to_i
 	 puts "triange is equal"
@@ -13,8 +13,15 @@ if a.to_i == b.to_i and c.to_i == a.to_i
 		if a.to_i == b.to_i or a.to_i == c.to_i or b.to_i == c.to_i
 			puts "triange is isosceles"
 		else
-			if a.to_i > b.to_i and a.to_i > c.to_i  and (a.to_i)*(a.to_i)==(b.to_i)*(b.to_i)+(c.to_i)*(c.to_i)				
+			if a.to_i > b.to_i and a.to_i > c.to_i  and (a.to_i) * (a.to_i) == (b.to_i) * (b.to_i) + (c.to_i) * (c.to_i)
+				else 
+					if b.to_i > a.to_i and b.to_i > c.to_i  and (b.to_i) * (b.to_i) == (a.to_i)*(a.to_i) + (c.to_i) * (c.to_i)
+						else
+							if c.to_i > b.to_i and c.to_i > a.to_i  and (c.to_i) * (c.to_i) == (b.to_i) * (b.to_i) + (a.to_i) * (a.to_i)
+						end
+					end
+
 			puts "rectangular"	
+			end
 		end
-	end
 end
