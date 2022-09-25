@@ -13,9 +13,9 @@ x2 = (-b - Math.sqrt(d)) / (2 * a)
 
 
 if d > 0
-	puts "2 roots, D = #{d}, x1 = #{x1}, x2 = #{x2}"
+  puts "2 roots, D = #{d}, x1 = #{x1}, x2 = #{x2}"
 elsif d < 0
-	puts "0 roots, D = #{d}"
+  puts "0 roots, D = #{d}"
 elsif d == 0
-	puts "One root, D = #{d}, x = #{x1}"	
+  puts "One root, D = #{d}, x = #{x1}"	
 end
