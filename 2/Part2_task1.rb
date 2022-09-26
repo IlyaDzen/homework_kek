@@ -4,7 +4,7 @@ months = {
 }
 
 ind = 0
-while ind < 12 do
+while ind < months.length do
   if months.values[ind] == 30
     puts months.keys[ind]
   end
