@@ -1,14 +1,9 @@
-fib = []
+fib = [1, 1, 2]
 
-index = 3
-
-fib.push 1 
-fib.push 1
-fib.push 2
-
-while fib.max <= 55
-  fib.push(fib[index-1] + fib[index-2])
-  index += 1
+while fib.last <= 100
+  fib.push(fib.last(2).sum)
 end
+
+fib.delete_if{|fib| fib > 100}
 
 puts fib
