@@ -1,5 +1,5 @@
 hash = {}
-summ = 0.to_f
+summ = 0
 
 loop do
   puts 'Name'
@@ -13,8 +13,8 @@ loop do
 
   puts 'Quantity'
   quantity = gets.chomp.to_i
-  hash[name] = price, quantity, price * quantity
-  summ = price * quantity + summ
+  hash[name] = { price: price, quantuty: quantity, sum: price * quantity}
+  summ += price * quantity
 end
 
 puts hash
