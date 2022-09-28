@@ -1,8 +1,7 @@
-index = 0
 hash = {}
 summ = 0.to_f
 
-while true == true
+loop do
   puts 'Name'
   name = gets.chomp.to_s
   if name == 'stop'
@@ -14,7 +13,6 @@ while true == true
 
   puts 'Quantity'
   quantity = gets.chomp.to_i
-  index =+ 1
   hash[name] = price, quantity, price * quantity
   summ = price * quantity + summ
 end
