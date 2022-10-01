@@ -13,7 +13,7 @@ loop do
 
   puts 'Quantity'
   quantity = gets.chomp.to_i
-  hash[name] = { price: price, quantuty: quantity, sum: price * quantity}
+  hash[name] = { price: price, quantity: quantity, sum: price * quantity}
   summ += price * quantity
 end
 
