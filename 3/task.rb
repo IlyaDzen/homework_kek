@@ -5,6 +5,7 @@ class Station
   end
 
   def train_arrive
+    
   end
 end
 
@@ -33,7 +34,7 @@ class Train
 
   def quantity
     @quantity
-  end
+  end 
 
   def quantity_attach
     if @speed == 0
