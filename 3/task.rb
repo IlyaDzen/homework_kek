@@ -1,41 +1,50 @@
 class Station
-  attr_reader :trains
+  attr_reader :trains, :gruz_quantity, :pass_quantity
 
   def initialize(name)
     @name = name
     @trains = []
     @gruz_quantity = 0
-    @pass_quantuty = 0
+    @pass_quantity = 0
   end
 
   def train_arrive(train)
     trains.push(train)
+    if train.type == 'pass'
+      @pass_quantity += 1
+    else
+      @gruz_quantity += 1
+    end
   end
 
-  def train_departure
-    trains.delete(trains.first)
+  def train_departure(train)
+    trains.delete(trains)
+    if train.type == 'pass'
+      @pass_quantity -= 1
+    else
+      @gruz_quantity -= 1
+    end
   end
 end
 
 class Route
-  attr_reader :stops
+  attr_reader :stops, :stops_index
 
   def initialize(start_station, final_station)
     @start_station = start_station
     @final_station = final_station
     @stops = [@start_station, @final_station]
+    @stops_index = 1
   end
 
   def add_stops(station)
-    stops.delete(stops.last)
-    stops.push(station)
-    stops.push(@final_station)
+    stops.insert(stops_index, station)
+    @stops_index += 1
   end 
 
   def delete_stops
-    stops.delete(stops.last)
-    stops.delete(stops.last)
-    stops.push(@final_station)
+    stops.delete_at(stops_index)
+    @stops_index -= 1
   end 
 end
 
@@ -50,7 +59,11 @@ class Train
     @station
   end
 
-  def set_speed
+  def type
+    @type
+  end
+
+  def increase_speed
     @speed += 5
   end
 
@@ -77,6 +90,7 @@ class Train
   def set_route(route)
     @route = route
     @route_index = 0
+    current_station.train_arrive(self)
   end
 
   def current_station
@@ -84,19 +98,23 @@ class Train
   end
 
   def move_forward
+    current_station.train_departure(self)
     @route_index += 1
+    current_station.train_arrive(self)
   end
 
   def move_backward
-     @route_index -= 1
+    current_station.train_departure(self)
+    @route_index -= 1
+    current_station.train_arrive(self)
    end
 
-   def previos
+  def previos
     route.stops[route_index - 1]
-   end
+  end
 
-     def next
+  def next
     route.stops[route_index + 1]
-   end
+  end
 end
 
