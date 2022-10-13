@@ -1,33 +1,12 @@
-module Company
-  attr_accessor :company_name
-end
-
-module InstanceCounter
-  @@instances = []
-  @@count = 0
-
-  def initialize
-    @@count += 1
-    @@instances << self
-  end
-
-  def instances
-    @@instances.inspect
-  end
-
-  def register_instance
-    @@count
-  end
-end
+require_relative 'module'
 
 class Train
   include Company
   include InstanceCounter
   attr_reader :speed, :quantity , :route_index, :route, :wagon_index, :wagons, :number
-  @@trains = []
 
   def initialize(number)
-    @@trains << self
+    self.class.push_instances(self)
     @number = number
     @speed = 0
     @wagon_index = 1
@@ -77,8 +56,10 @@ class Train
     route.stops[route_index + 1]
   end
 
-  def find(number)
-    @@trains
+  def self.find(number)  
+
+   self.all_instances.find { |train| train.number == number } 
+
   end
 end
 
