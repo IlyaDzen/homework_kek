@@ -1,4 +1,4 @@
-class Route
+  class Route
   attr_reader :stops, :stops_index, :start_station, :final_station
   include InstanceCounter
   
