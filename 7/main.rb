@@ -7,7 +7,6 @@ require_relative 'wagons'
 @routes = []
 @stations = []
 @wagons = []
-@seats = []
 @volume
 
   #    - Создавать станции
@@ -229,7 +228,7 @@ def take_seat
   wagon_index = gets.to_i
   wagon = @wagons[wagon_index]
 
-  @seats.push(1)
+  wagon.take_seat
 end
 
 def view_taked_seats
@@ -249,7 +248,7 @@ def view_taked_seats
   wagon_index = gets.to_i
   wagon = @wagons[wagon_index]
 
-  puts @seats.length
+  puts wagon.view_taken_seats
 end
 
 def view_free_seats
@@ -269,7 +268,7 @@ def view_free_seats
   wagon_index = gets.to_i
   wagon = @wagons[wagon_index]
 
-  puts wagon.seats - @seats.length
+ puts wagon.view_free_seats
 end
 
 def occupy
@@ -289,8 +288,7 @@ def occupy
   wagon_index = gets.to_i
   wagon = @wagons[wagon_index]
 
-  puts "How much volume u want to feel? "
-  @volume = gets.to_i
+  wagon.occupy
 end
 
 def view_occuped_volume
@@ -310,7 +308,7 @@ def view_occuped_volume
   wagon_index = gets.to_i
   wagon = @wagons[wagon_index]
 
-  puts @volume
+  puts wagon.view_occuped_volume
 end
 
 def view_free_volume
@@ -322,7 +320,7 @@ def view_free_volume
   train_index = gets.to_i
   train = @trains[train_index]
 
-   puts "Available wagons: "
+  puts "Available wagons: "
   @wagons.each.with_index do |wagon, index| 
     puts "#{index}. #{wagon.volume}"
   end
@@ -330,7 +328,31 @@ def view_free_volume
   wagon_index = gets.to_i
   wagon = @wagons[wagon_index]
 
-  puts wagon.volume - @volume
+  puts wagon.view_free_volume
+end
+
+def trains
+  puts "Available stations: "
+  @stations.each.with_index do |station, index| 
+    puts "#{index}. #{station.name}"
+  end
+  puts "select station index: "
+  station_index = gets.to_i
+  station = @stations[station_index]
+
+  station.train_in_block { |train| puts train.number }
+end
+
+def wagons
+  puts "Available trains: "
+  @trains.each.with_index do |train, index| 
+  puts "#{index}. #{train.number}"
+  end
+  puts "Select train: "
+  train_index = gets.to_i
+  train = @trains[train_index]
+
+  train.wagon_in_block { |wagon| puts wagon.seats }
 end
 
 loop do
@@ -353,6 +375,8 @@ loop do
   puts "Enter 17 to occupy volume"
   puts "Enter 18 to view occuped volume"
   puts "Enter 19 to view free volume"
+  puts "Enter 20 trains"
+  puts "Enter 21 wagons"
   puts "0 to exit" 
   enter_index = gets.to_i
   case enter_index
@@ -394,6 +418,10 @@ loop do
     view_occuped_volume
   when 19
     view_free_volume
+  when 20
+    trains
+  when 21
+    wagons
   when 0
     break
   end

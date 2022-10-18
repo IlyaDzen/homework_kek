@@ -71,6 +71,10 @@ class Train
    self.all_instances.find { |train| train.number == number } 
 
   end
+
+  def wagon_in_block(&block)
+    wagons.each { |wagon| yield(wagon) }    
+  end
 end
 
 class PassengerTrain < Train

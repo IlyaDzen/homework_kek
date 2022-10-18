@@ -27,6 +27,9 @@ class Station
     true
   end
 
+  def train_in_block(&block)
+    trains.each { |train| yield(train) }    
+  end
 
   def train_arrive(train)
     trains.push(train)
