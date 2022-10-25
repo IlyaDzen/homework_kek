@@ -16,13 +16,14 @@ module Accessors
     end
   end
 
-  def strong_attr_accessor(name)
+  def strong_attr_accessor(name, klass)
     var_name = "@#{name}".to_sym
     define_method(name) { instance_variable_get(var_name) }
     define_method("#{name}=") do |value|
 
-       instance_variable_set(var_name, value)
-      end
+    instance_variable_set(var_name, value)
+      raise TypeError unless value.is_a?(klass)
+    end
   end
 end
 
@@ -30,5 +31,6 @@ class Test
   extend Accessors
 
   attr_accessor_with_history :my_attr, :a, :b, :c
+  strong_attr_accessor :number, Integer
   
 end
