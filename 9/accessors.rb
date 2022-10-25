@@ -20,7 +20,6 @@ module Accessors
     var_name = "@#{name}".to_sym
     define_method(name) { instance_variable_get(var_name) }
     define_method("#{name}=") do |value|
-      raise TypeError if value.is_a(type) == true
 
        instance_variable_set(var_name, value)
       end
