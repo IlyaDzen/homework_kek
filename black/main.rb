@@ -151,8 +151,8 @@ loop do
 	case enter_index
   when 1
     pass
-	when 2
-		add_card
+  when 2
+    add_card
 	when 3
     open_cards
   when 4
