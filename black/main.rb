@@ -153,7 +153,7 @@ loop do
     pass
   when 2
     add_card
-	when 3
+  when 3
     open_cards
   when 4
     new_game
