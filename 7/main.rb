@@ -9,25 +9,25 @@ require_relative 'wagons'
 @wagons = []
 @volume
 
-  #    - Создавать станции
-  #    - Создавать поезда
-  #    - Создавать маршруты и управлять станциями в нем (добавлять, удалять)
-  #    - Назначать маршрут поезду
-  #    - Добавлять вагоны к поезду
-  #    - Отцеплять вагоны от поезда
-  #    - Перемещать поезд по маршруту вперед и назад
-  #    - Просматривать список станций и список поездов на станции
+#    - Создавать станции
+#    - Создавать поезда
+#    - Создавать маршруты и управлять станциями в нем (добавлять, удалять)
+#    - Назначать маршрут поезду
+#    - Добавлять вагоны к поезду
+#    - Отцеплять вагоны от поезда
+#    - Перемещать поезд по маршруту вперед и назад
+#    - Просматривать список станций и список поездов на станции
 
 def create_station
-  puts "Enter station name: "
+  puts 'Enter station name: '
   name = gets.chomp
   @stations << Station.new(name)
 end
 
 def create_train
-  puts "Enter train number: "
+  puts 'Enter train number: '
   train_number = gets.chomp
-  puts "Enter type pass/cargo: "
+  puts 'Enter type pass/cargo: '
   train_type = gets.chomp
   if train_type == 'pass'
     @trains << PassengerTrain.new(train_number)
@@ -38,56 +38,55 @@ def create_train
   else
     raise
   end
-rescue
+rescue StandardError
   puts 'Put valid format please'
 end
 
 def create_route
-  puts "Available stations: "
-  @stations.each.with_index do |station, index| 
+  puts 'Available stations: '
+  @stations.each.with_index do |station, index|
     puts "#{index}. #{station.name}"
   end
-  puts "Create route, select start station index: "
+  puts 'Create route, select start station index: '
   start_station_index = gets.to_i
   start_station = @stations[start_station_index]
-  puts "Create route, select final station index: "
+  puts 'Create route, select final station index: '
   final_station_index = gets.to_i
   final_station = @stations[final_station_index]
   @routes << Route.new(start_station, final_station)
 end
 
 def create_stops
-  puts "Available routes: "
+  puts 'Available routes: '
   @routes.each.with_index do |route, index|
     puts "#{index}. #{route.start_station.name}-#{route.final_station.name}"
   end
-  
 
-  puts "Select route index: "
+  puts 'Select route index: '
   route_index = gets.to_i
   route = @routes[route_index]
 
-  puts "Available stations: "
-  @stations.each.with_index do |station, index| 
+  puts 'Available stations: '
+  @stations.each.with_index do |station, index|
     puts "#{index}. #{station.name}"
   end
 
-  puts "Add station, select station index: "
+  puts 'Add station, select station index: '
   station_index = gets.to_i
   station = @stations[station_index]
 
   route.add_stops(station)
 
-  puts "Current stops are: #{route.stops.map { |route| route.name }.join(" - ")}"
+  puts "Current stops are: #{route.stops.map { |route| route.name }.join(' - ')}"
 end
 
 def delete_stops
-  puts "Select route, "
-  puts "Available routes: "
+  puts 'Select route, '
+  puts 'Available routes: '
   @routes.each.with_index do |route, index|
     puts "#{index}. #{route.start_station.name}-#{route.final_station.name}"
   end
-  puts "Select route index: "
+  puts 'Select route index: '
   route_index = gets.to_i
   route = @routes[route_index]
 
@@ -95,20 +94,20 @@ def delete_stops
 end
 
 def set_train_route
-  puts "Available trains: "
-  @trains.each.with_index do |train, index| 
+  puts 'Available trains: '
+  @trains.each.with_index do |train, index|
     puts "#{index}. #{train.number}"
   end
-  puts "Select train: "
+  puts 'Select train: '
   train_index = gets.to_i
   train = @trains[train_index]
 
-  puts "Available routes: "
+  puts 'Available routes: '
   @routes.each.with_index do |route, index|
     puts "#{index}. #{route.start_station.name}-#{route.final_station.name}"
   end
 
-  puts "Select route index: "
+  puts 'Select route index: '
   route_index = gets.to_i
   route = @routes[route_index]
 
@@ -116,22 +115,22 @@ def set_train_route
 end
 
 def attach_wagon
-  puts "Available trains: "
-  @trains.each.with_index do |train, index| 
+  puts 'Available trains: '
+  @trains.each.with_index do |train, index|
     puts "#{index}. #{train.number}"
   end
-  puts "Select train: "
+  puts 'Select train: '
   train_index = gets.to_i
   train = @trains[train_index]
 
   if train.is_a?(PassengerTrain)
-    puts "Set number of seats"
+    puts 'Set number of seats'
     seats = gets.to_i
     passenger_wagon = PassengerWagons.new(seats)
     train.quantity_attach(passenger_wagon)
     @wagons << passenger_wagon
-  elsif train.is_a?(CargoTrain) 
-    puts "Set volume"
+  elsif train.is_a?(CargoTrain)
+    puts 'Set volume'
     volume = gets.to_i
     cargo_wagon = CargoWagons.new(volume)
     train.quantity_attach(cargo_wagon)
@@ -140,11 +139,11 @@ def attach_wagon
 end
 
 def detach_wagon
-  puts "Available trains: "
-  @trains.each.with_index do |train, index| 
+  puts 'Available trains: '
+  @trains.each.with_index do |train, index|
     puts "#{index}. #{train.number}"
   end
-  puts "Select train: "
+  puts 'Select train: '
   train_index = gets.to_i
   train = @trains[train_index]
 
@@ -152,11 +151,11 @@ def detach_wagon
 end
 
 def move_forward
-  puts "Available trains: "
-  @trains.each.with_index do |train, index| 
+  puts 'Available trains: '
+  @trains.each.with_index do |train, index|
     puts "#{index}. #{train.number}"
   end
-  puts "Select train: "
+  puts 'Select train: '
   train_index = gets.to_i
   train = @trains[train_index]
 
@@ -164,11 +163,11 @@ def move_forward
 end
 
 def move_backward
-  puts "Available trains: "
-  @trains.each.with_index do |train, index| 
+  puts 'Available trains: '
+  @trains.each.with_index do |train, index|
     puts "#{index}. #{train.number}"
   end
-  puts "Select train: "
+  puts 'Select train: '
   train_index = gets.to_i
   train = @trains[train_index]
 
@@ -176,55 +175,55 @@ def move_backward
 end
 
 def stations
-  puts "Available stations: "
-  @stations.each.with_index do |station, index| 
+  puts 'Available stations: '
+  @stations.each.with_index do |station, index|
     puts "#{index}. #{station.name}"
   end
 end
 
 def trains_on_station
-  puts "Available stations: "
-  @stations.each.with_index do |station, index| 
+  puts 'Available stations: '
+  @stations.each.with_index do |station, index|
     puts "#{index}. #{station.name}"
   end
-  puts "select station index: "
+  puts 'select station index: '
   station_index = gets.to_i
   station = @stations[station_index]
 
-  puts station.trains.map { |train| train.number }.join(", ")
+  puts station.trains.map { |train| train.number }.join(', ')
 end
 
 def wagons_on_train
-  puts "Available trains: "
-  @trains.each.with_index do |train, index| 
+  puts 'Available trains: '
+  @trains.each.with_index do |train, index|
     puts "#{index}. #{train.number}"
   end
-  puts "Select train: "
+  puts 'Select train: '
   train_index = gets.to_i
   train = @trains[train_index]
 
-  puts "train wagons: "
+  puts 'train wagons: '
   if train.is_a?(PassengerTrain)
-    puts train.wagons.map { |wagon| wagon.seats }.join(", ")
-  elsif train.is_a?(CargoTrain) 
-    puts train.wagons.map { |wagon| wagon.volume }.join(", ")
+    puts train.wagons.map { |wagon| wagon.seats }.join(', ')
+  elsif train.is_a?(CargoTrain)
+    puts train.wagons.map { |wagon| wagon.volume }.join(', ')
   end
 end
 
 def take_seat
-  puts "Available trains: "
-  @trains.each.with_index do |train, index| 
-  puts "#{index}. #{train.number}"
+  puts 'Available trains: '
+  @trains.each.with_index do |train, index|
+    puts "#{index}. #{train.number}"
   end
-  puts "Select train: "
+  puts 'Select train: '
   train_index = gets.to_i
   train = @trains[train_index]
 
-   puts "Available wagons: "
-  @wagons.each.with_index do |wagon, index| 
+  puts 'Available wagons: '
+  @wagons.each.with_index do |wagon, index|
     puts "#{index}. #{wagon.seats}"
   end
-  puts "Select wagon: "
+  puts 'Select wagon: '
   wagon_index = gets.to_i
   wagon = @wagons[wagon_index]
 
@@ -232,19 +231,19 @@ def take_seat
 end
 
 def view_taked_seats
-  puts "Available trains: "
-  @trains.each.with_index do |train, index| 
-  puts "#{index}. #{train.number}"
+  puts 'Available trains: '
+  @trains.each.with_index do |train, index|
+    puts "#{index}. #{train.number}"
   end
-  puts "Select train: "
+  puts 'Select train: '
   train_index = gets.to_i
   train = @trains[train_index]
 
-   puts "Available wagons: "
-  @wagons.each.with_index do |wagon, index| 
+  puts 'Available wagons: '
+  @wagons.each.with_index do |wagon, index|
     puts "#{index}. #{wagon.seats}"
   end
-  puts "Select wagon: "
+  puts 'Select wagon: '
   wagon_index = gets.to_i
   wagon = @wagons[wagon_index]
 
@@ -252,39 +251,39 @@ def view_taked_seats
 end
 
 def view_free_seats
-  puts "Available trains: "
-  @trains.each.with_index do |train, index| 
-  puts "#{index}. #{train.number}"
+  puts 'Available trains: '
+  @trains.each.with_index do |train, index|
+    puts "#{index}. #{train.number}"
   end
-  puts "Select train: "
+  puts 'Select train: '
   train_index = gets.to_i
   train = @trains[train_index]
 
-   puts "Available wagons: "
-  @wagons.each.with_index do |wagon, index| 
+  puts 'Available wagons: '
+  @wagons.each.with_index do |wagon, index|
     puts "#{index}. #{wagon.seats}"
   end
-  puts "Select wagon: "
+  puts 'Select wagon: '
   wagon_index = gets.to_i
   wagon = @wagons[wagon_index]
 
- puts wagon.view_free_seats
+  puts wagon.view_free_seats
 end
 
 def occupy
-  puts "Available trains: "
-  @trains.each.with_index do |train, index| 
-  puts "#{index}. #{train.number}"
+  puts 'Available trains: '
+  @trains.each.with_index do |train, index|
+    puts "#{index}. #{train.number}"
   end
-  puts "Select train: "
+  puts 'Select train: '
   train_index = gets.to_i
   train = @trains[train_index]
 
-   puts "Available wagons: "
-  @wagons.each.with_index do |wagon, index| 
+  puts 'Available wagons: '
+  @wagons.each.with_index do |wagon, index|
     puts "#{index}. #{wagon.volume}"
   end
-  puts "Select wagon: "
+  puts 'Select wagon: '
   wagon_index = gets.to_i
   wagon = @wagons[wagon_index]
 
@@ -292,19 +291,19 @@ def occupy
 end
 
 def view_occuped_volume
-  puts "Available trains: "
-  @trains.each.with_index do |train, index| 
-  puts "#{index}. #{train.number}"
+  puts 'Available trains: '
+  @trains.each.with_index do |train, index|
+    puts "#{index}. #{train.number}"
   end
-  puts "Select train: "
+  puts 'Select train: '
   train_index = gets.to_i
   train = @trains[train_index]
 
-   puts "Available wagons: "
-  @wagons.each.with_index do |wagon, index| 
+  puts 'Available wagons: '
+  @wagons.each.with_index do |wagon, index|
     puts "#{index}. #{wagon.volume}"
   end
-  puts "Select wagon: "
+  puts 'Select wagon: '
   wagon_index = gets.to_i
   wagon = @wagons[wagon_index]
 
@@ -312,19 +311,19 @@ def view_occuped_volume
 end
 
 def view_free_volume
-  puts "Available trains: "
-  @trains.each.with_index do |train, index| 
-  puts "#{index}. #{train.number}"
+  puts 'Available trains: '
+  @trains.each.with_index do |train, index|
+    puts "#{index}. #{train.number}"
   end
-  puts "Select train: "
+  puts 'Select train: '
   train_index = gets.to_i
   train = @trains[train_index]
 
-  puts "Available wagons: "
-  @wagons.each.with_index do |wagon, index| 
+  puts 'Available wagons: '
+  @wagons.each.with_index do |wagon, index|
     puts "#{index}. #{wagon.volume}"
   end
-  puts "Select wagon: "
+  puts 'Select wagon: '
   wagon_index = gets.to_i
   wagon = @wagons[wagon_index]
 
@@ -332,11 +331,11 @@ def view_free_volume
 end
 
 def trains
-  puts "Available stations: "
-  @stations.each.with_index do |station, index| 
+  puts 'Available stations: '
+  @stations.each.with_index do |station, index|
     puts "#{index}. #{station.name}"
   end
-  puts "select station index: "
+  puts 'select station index: '
   station_index = gets.to_i
   station = @stations[station_index]
 
@@ -344,11 +343,11 @@ def trains
 end
 
 def wagons
-  puts "Available trains: "
-  @trains.each.with_index do |train, index| 
-  puts "#{index}. #{train.number}"
+  puts 'Available trains: '
+  @trains.each.with_index do |train, index|
+    puts "#{index}. #{train.number}"
   end
-  puts "Select train: "
+  puts 'Select train: '
   train_index = gets.to_i
   train = @trains[train_index]
 
@@ -356,31 +355,31 @@ def wagons
 end
 
 loop do
-  puts "Enter 1 to create station"
-  puts "Enter 2 to create train"
-  puts "Enter 3 to create route"
-  puts "Enter 4 to add stops"
-  puts "Enter 5 to delete stops"
-  puts "Enter 6 to set train route"
-  puts "Enter 7 to attach_wagon"
-  puts "Enter 8 to detach_wagon"
-  puts "Enter 9 to move_forward"
-  puts "Enter 10 to move_backward"
-  puts "Enter 11 to view stations"
-  puts "Enter 12 to view trains on station"
-  puts "Enter 13 to view number of wagons on train"
-  puts "Enter 14 to take a seat"
-  puts "Enter 15 to view taked seats"
-  puts "Enter 16 to view free seats"
-  puts "Enter 17 to occupy volume"
-  puts "Enter 18 to view occuped volume"
-  puts "Enter 19 to view free volume"
-  puts "Enter 20 trains"
-  puts "Enter 21 wagons"
-  puts "0 to exit" 
+  puts 'Enter 1 to create station'
+  puts 'Enter 2 to create train'
+  puts 'Enter 3 to create route'
+  puts 'Enter 4 to add stops'
+  puts 'Enter 5 to delete stops'
+  puts 'Enter 6 to set train route'
+  puts 'Enter 7 to attach_wagon'
+  puts 'Enter 8 to detach_wagon'
+  puts 'Enter 9 to move_forward'
+  puts 'Enter 10 to move_backward'
+  puts 'Enter 11 to view stations'
+  puts 'Enter 12 to view trains on station'
+  puts 'Enter 13 to view number of wagons on train'
+  puts 'Enter 14 to take a seat'
+  puts 'Enter 15 to view taked seats'
+  puts 'Enter 16 to view free seats'
+  puts 'Enter 17 to occupy volume'
+  puts 'Enter 18 to view occuped volume'
+  puts 'Enter 19 to view free volume'
+  puts 'Enter 20 trains'
+  puts 'Enter 21 wagons'
+  puts '0 to exit'
   enter_index = gets.to_i
   case enter_index
-  when 1 
+  when 1
     create_station
   when 2
     create_train

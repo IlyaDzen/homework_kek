@@ -30,7 +30,6 @@ class PassengerWagons < Wagon
   end
 end
 
-
 class CargoWagons < Wagon
   attr_reader :volume, :occuped_volume
 
@@ -40,7 +39,7 @@ class CargoWagons < Wagon
   end
 
   def occupy
-    puts "How much volume u want to feel? "
+    puts 'How much volume u want to feel? '
     @occuped_volume = gets.to_i
   end
 

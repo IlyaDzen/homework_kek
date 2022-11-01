@@ -1,10 +1,9 @@
 def valid?
-	validate!
-rescue
+  validate!
+rescue StandardError
   false
 end
 
 def valdate!
-  
   true
 end

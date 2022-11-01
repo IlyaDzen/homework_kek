@@ -6,10 +6,10 @@ module InstanceCounter
   def self.included(base)
     base.extend(ClassMethods)
   end
- 
+
   module ClassMethods
-     @@instances = []
-     @@counter = 0
+    @@instances = []
+    @@counter = 0
 
     def push_instances(instance)
       @@instances << instance
@@ -25,4 +25,3 @@ module InstanceCounter
     end
   end
 end
-
