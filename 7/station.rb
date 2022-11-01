@@ -3,8 +3,8 @@ require_relative 'module'
 class Station
   attr_reader :trains, :gruz_quantity, :pass_quantity, :name
   include InstanceCounter
-  
-  NAME_FORMAT = /.+/
+
+  NAME_FORMAT = /.+/.freeze
 
   @@stations = []
   def initialize(name)
@@ -18,17 +18,18 @@ class Station
 
   def station_valid?
     station_validate!
-  rescue
+  rescue StandardError
     false
   end
 
   def station_validate!
-    raise "Name has invalid format" if name !~ NAME_FORMAT
+    raise 'Name has invalid format' if name !~ NAME_FORMAT
+
     true
   end
 
-  def train_in_block(&block)
-    trains.each { |train| yield(train) }    
+  def train_in_block
+    trains.each { |train| yield(train) }
   end
 
   def train_arrive(train)

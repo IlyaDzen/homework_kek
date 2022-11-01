@@ -3,9 +3,9 @@ require_relative 'module'
 class Train
   include Company
   include InstanceCounter
-  attr_reader :speed, :quantity , :route_index, :route, :wagon_index, :wagons, :number
+  attr_reader :speed, :quantity, :route_index, :route, :wagon_index, :wagons, :number
 
-  NUMBER_FORMAT = /^[a-z0-9]{3}-?[a-z0-9]{2}$/i
+  NUMBER_FORMAT = /^[a-z0-9]{3}-?[a-z0-9]{2}$/i.freeze
 
   def initialize(number)
     self.class.push_instances(self)
@@ -21,7 +21,7 @@ class Train
   end
 
   def train_validate!
-    raise "Number has invalid format" if number !~ NUMBER_FORMAT
+    raise 'Number has invalid format' if number !~ NUMBER_FORMAT
   end
 
   def increase_speed
@@ -66,25 +66,23 @@ class Train
     route.stops[route_index + 1]
   end
 
-  def self.find(number)  
-
-   self.all_instances.find { |train| train.number == number } 
-
+  def self.find(number)
+    all_instances.find { |train| train.number == number }
   end
 
-  def wagon_in_block(&block)
-    wagons.each { |wagon| yield(wagon) }    
+  def wagon_in_block
+    wagons.each { |wagon| yield(wagon) }
   end
 end
 
 class PassengerTrain < Train
   def quantity_attach(wagon)
-      @wagons.push(wagon)
+    @wagons.push(wagon)
   end
 end
 
 class CargoTrain < Train
   def quantity_attach(wagon)
-      @wagons.push(wagon)
+    @wagons.push(wagon)
   end
 end
